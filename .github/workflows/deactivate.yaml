@@ -2,6 +2,13 @@ name: ♻️ Deactivate
 on:
   pull_request:
     types: [closed]
+  delete:
+    branches:
+      - "**"
+      - "!v*"
+      - "!master"
+      - "!main"
+      - "!dev"
 
 concurrency:
   cancel-in-progress: true
