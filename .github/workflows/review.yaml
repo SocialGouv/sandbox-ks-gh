@@ -5,6 +5,8 @@ on:
       - "**"
       - "!master"
       - "!main"
+      - "!feat/**"
+      - "!fix/**"
 
 concurrency:
   cancel-in-progress: true
