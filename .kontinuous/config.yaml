@@ -5,4 +5,4 @@ dependencies:
     import: SocialGouv/kontinuous/plugins/fabrique
     options:
       registry: harbor.fabrique.social.gouv.fr
-
+    extends: [deploy-with-kubectl]
