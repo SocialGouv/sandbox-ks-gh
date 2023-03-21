@@ -1,0 +1,11 @@
+name: tty
+on:
+  push:
+    branches:
+      - "**"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: node -e "console.log(process.stdout.isTTY)"
