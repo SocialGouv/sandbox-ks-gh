@@ -1,4 +1,4 @@
-name: Test tty
+name: tty
 on:
   push:
     branches:
