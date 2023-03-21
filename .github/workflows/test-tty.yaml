@@ -13,7 +13,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event.ref }}
 
 jobs:
-  kontinuous:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - run: node -e "console.log(process.stdout.isTTY)"
+      - name: Test
+        run: node -e "console.log(process.stdout.isTTY)"
