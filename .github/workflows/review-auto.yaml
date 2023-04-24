@@ -22,7 +22,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'harbor.fabrique.social.gouv.fr/sandbox/sandbox-ks-gh/app'
+          image-ref: 'harbor.fabrique.social.gouv.fr/sandbox/sandbox-ks-gh/app:sha-d59b7fb27704f4b87d18900b967f1d316716777e'
           severity: 'CRITICAL'  
           exit-code: '1'
           timeout: "20m"
