@@ -19,9 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - shell: bash
-        run: |
-          git branch --show-current
+      - uses: socialgouv/sandbox-ks-gh/.github/actions/deploy-via-github@feat/trivy-testing
   #     - name: Run Trivy vulnerability scanner
   #       uses: aquasecurity/trivy-action@master
   #       with:
