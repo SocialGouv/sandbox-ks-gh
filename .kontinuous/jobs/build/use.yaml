@@ -30,7 +30,7 @@ runs:
         emptyDir: {}
       - name: certs
         secret:
-          secretName: "${{ or $with.buildkitServiceClientCertsSecretName "buildkit-client-certs" }}"
+          secretName: "${{ or $with.buildkitServiceClientCertsSecretName `buildkit-client-certs` }}"
           # optional: true
           optional: false
     volumeMounts:
