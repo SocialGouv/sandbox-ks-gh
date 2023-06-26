@@ -3,9 +3,8 @@ runs:
   - name: buildkit
     checkout: true
     action: false
-    # image: moby/buildkit:v0.8.1-rootless
     # image: moby/buildkit:master-rootless
-    image: moby/buildkit:v0.10.5-rootless
+    image: moby/buildkit:v0.11.6-rootless
     # serviceAccountName: buildkit
     cpuLimit: "2"
     cpuRequest: 500m
