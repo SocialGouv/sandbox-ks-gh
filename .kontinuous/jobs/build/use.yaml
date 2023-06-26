@@ -28,12 +28,28 @@ runs:
     volumes:
       - name: buildkitd
         emptyDir: {}
+      - name: certs
+        secret:
+          secretName: buildkit-certs
+          optional: true
     volumeMounts:
       - mountPath: /home/user/.local/share/buildkit
         name: buildkitd
+      - mountPath: /buildkit-certs
+        name: certs
+        readOnly: true
     run: |
       if [ "{{ $.with.registry }}" != "" ]; then
         export CI_REGISTRY="{{ $.with.registry }}"
+      fi
+      if [ "{{ $.with.buildkitServiceEnabled }}" != "" ]; then
+        buildctl_cmd="buildctl \
+          --addr {{ or $.with.buildkitServiceAddr "tcp://buildkit-service.buildkit-service.svc:1234" }} \
+          --tlscacert /secrets/buildkit-certs/ca.pem \
+          --tlscert /secrets/buildkit-certs/cert.pem \
+          --tlskey /secrets/buildkit-certs/key.pem"
+      else
+        buildctl_cmd=buildctl-daemonless.sh
       fi
       mkdir -p /home/user/.docker
       echo "{\"auths\":{\"$CI_REGISTRY\":{\"username\":\"$CI_REGISTRY_USER\",\"password\":\"$CI_REGISTRY_PASSWORD\"}}}" > /home/user/.docker/config.json
@@ -42,7 +58,7 @@ runs:
       if [ "{{ $.Values.global.isProd }}" = "true" ]; then
         export LATEST_TAG=",$IMAGE_PATH:latest"
       fi
-      buildctl-daemonless.sh \
+      $buildctl_cmd \
         build \
         --frontend dockerfile.v0 \
         --local context=/workspace/{{ if $.with.context }}/{{ $.with.context }}{{ end }} \
