@@ -42,13 +42,12 @@ runs:
       if [ "{{ $.with.registry }}" != "" ]; then
         export CI_REGISTRY="{{ $.with.registry }}"
       fi
-      tail -f
       if [ "{{ $.with.buildkitServiceEnabled }}" != "" ]; then
         buildctl_cmd="buildctl \
           --addr {{ or $.with.buildkitServiceAddr "tcp://buildkit-service.buildkit-service.svc:1234" }} \
-          --tlscacert /secrets/buildkit-certs/ca.pem \
-          --tlscert /secrets/buildkit-certs/cert.pem \
-          --tlskey /secrets/buildkit-certs/key.pem"
+          --tlscacert /buildkit-certs/ca.pem \
+          --tlscert /buildkit-certs/cert.pem \
+          --tlskey /buildkit-certs/key.pem"
       else
         buildctl_cmd=buildctl-daemonless.sh
       fi
