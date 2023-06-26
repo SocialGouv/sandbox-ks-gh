@@ -14,18 +14,5 @@ jobs:
     name: "🇫🇷 SocialGouv"
     uses: socialgouv/workflows/.github/workflows/use-ks-gh-review-auto.yaml@v1
     secrets: inherit
-
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #     - uses: socialgouv/sandbox-ks-gh/.github/actions/deploy-via-github@feat/trivy-testing
-  #     - name: Run Trivy vulnerability scanner
-  #       uses: aquasecurity/trivy-action@master
-  #       with:
-  #         image-ref: 'harbor.fabrique.social.gouv.fr/sandbox/sandbox-ks-gh/app:sha-d59b7fb27704f4b87d18900b967f1d316716777e'
-  #         severity: 'CRITICAL'  
-  #         exit-code: '1'
-  #         timeout: "20m"
-  #         format: 'table'
-  #         trivy-config: "trivy.yaml"
+    with:
+      kubeconfig: ${{ secrets.KUBECONFIG_OVH }}

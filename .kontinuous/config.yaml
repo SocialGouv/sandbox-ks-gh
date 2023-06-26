@@ -1,8 +1,3 @@
-projectName: sandbox
-
-dependencies:
-  fabrique:
-    import: SocialGouv/kontinuous/plugins/fabrique
-    options:
-      registry: harbor.fabrique.social.gouv.fr
-
+# projectName: sandbox
+projectName: fabrique
+ciNamespace: ci-fabrique
