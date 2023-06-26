@@ -10,6 +10,8 @@ app:
 jobs:
   runs:
     build-app:
+      use: socialgouv/sandbox-ks-gh/.kontinuous/jobs/build@feat/ovh-buildkit-service
       with:
+        buildkitServiceEnabled: true
         buildArgs:
           COMMIT_SHA: "{{ $.Values.global.sha }}"
