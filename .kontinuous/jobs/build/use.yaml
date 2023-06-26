@@ -42,6 +42,7 @@ runs:
       if [ "{{ $.with.registry }}" != "" ]; then
         export CI_REGISTRY="{{ $.with.registry }}"
       fi
+      tail -f
       if [ "{{ $.with.buildkitServiceEnabled }}" != "" ]; then
         buildctl_cmd="buildctl \
           --addr {{ or $.with.buildkitServiceAddr "tcp://buildkit-service.buildkit-service.svc:1234" }} \
