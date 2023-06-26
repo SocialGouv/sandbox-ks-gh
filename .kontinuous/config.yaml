@@ -1,3 +1,8 @@
 # projectName: sandbox
 projectName: fabrique
 ciNamespace: ci-fabrique
+dependencies:
+  fabrique:
+    extends:
+      - name: ovh
+        # ifEnv: [dev]
