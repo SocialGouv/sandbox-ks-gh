@@ -42,14 +42,20 @@ runs:
       if [ "{{ $.with.registry }}" != "" ]; then
         export CI_REGISTRY="{{ $.with.registry }}"
       fi
+      buildctl_options_cache=""
+      buildctl_options_mtls=""
+
       if [ "{{ $.with.buildkitServiceEnabled }}" != "" ]; then
         buildctl_cmd="buildctl \
           --addr {{ or $.with.buildkitServiceAddr "tcp://buildkit-service.buildkit-service.svc:1234" }} \
-          --tlscacert /buildkit-certs/ca.pem \
-          --tlscert /buildkit-certs/cert.pem \
-          --tlskey /buildkit-certs/key.pem \
         "
-        buildctl_options_cache=""
+        if [ -f /buildkit-certs/cert.pem ]; then
+          buildctl_options_mtls="\
+            --tlscacert /buildkit-certs/ca.pem \
+            --tlscert /buildkit-certs/cert.pem \
+            --tlskey /buildkit-certs/key.pem \
+          "
+        fi
       else
         buildctl_cmd=buildctl-daemonless.sh
         buildctl_options_cache="\
@@ -65,6 +71,7 @@ runs:
         export LATEST_TAG=",$IMAGE_PATH:latest"
       fi
       $buildctl_cmd \
+        $buildctl_options_mtls \
         build \
         --frontend dockerfile.v0 \
         --local context=/workspace/{{ if $.with.context }}/{{ $.with.context }}{{ end }} \
