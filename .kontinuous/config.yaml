@@ -1,6 +1,1 @@
 projectName: sandbox
-
-dependencies:
-  fabrique:
-    extends:
-      - name: ovh
